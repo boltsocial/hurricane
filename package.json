@@ -2,6 +2,7 @@
   "name": "hurricane",
   "module": "index.ts",
   "type": "module",
+  "version": "0.0.1",
   "packageManager": "^bun@1.1.33",
   "devDependencies": {
     "@commitlint/cli": "^19.5.0",
@@ -20,12 +21,16 @@
   },
   "scripts": {
     "prepare": "husky",
-    "build": "bun build . --outdir dist"
+    "build": "bun build . --outdir dist",
+    "lint": "eslint"
   },
   "lint-staged": {
     "*.ts": [
       "eslint --fix",
       "prettier --write"
     ]
+  },
+  "publishConfig": {
+    "access": "restricted"
   }
 }
