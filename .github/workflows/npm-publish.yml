@@ -40,7 +40,6 @@ jobs:
           bun-version: latest
           # The URL of the package registry to use for installing Bun. Set the $BUN_AUTH_TOKEN environment variable to authenticate with the registry.
           registry-url: https://npm.pkg.github.com/
-      - run: bun install --frozen-lockfile
       - run: bun publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
