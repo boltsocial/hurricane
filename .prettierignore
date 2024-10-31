@@ -1,0 +1,12 @@
+# Ignore artifacts:
+build
+coverage
+
+# Ignore all dotfiles
+.*
+
+# Husky
+.husky
+
+# Node
+node_modules
