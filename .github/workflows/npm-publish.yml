@@ -21,7 +21,7 @@ jobs:
         with:
           # The version of Bun to install. (e.g. "latest", "canary", "1.0.0", "1.0.x", <sha>)
           bun-version: latest
-      - run: bun install --frozen-lockfile
+      - run: bun install
       - run: bun lint
       - run: bun run build
 
@@ -40,7 +40,7 @@ jobs:
         with:
           # The version of Bun to install. (e.g. "latest", "canary", "1.0.0", "1.0.x", <sha>)
           bun-version: latest
-      - run: bun install --frozen-lockfile
+      - run: bun install
       - run: bun publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
