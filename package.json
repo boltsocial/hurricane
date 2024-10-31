@@ -29,8 +29,5 @@
       "eslint --fix",
       "prettier --write"
     ]
-  },
-  "publishConfig": {
-    "access": "restricted"
   }
 }
