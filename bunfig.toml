@@ -1,0 +1,2 @@
+[install.scopes]
+@boltsocial = { token="$NPM_CONFIG_TOKEN", url="https://npm.pkg.github.com" }
