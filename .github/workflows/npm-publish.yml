@@ -6,8 +6,7 @@ name: Node.js Package
 on:
   release:
     types: [created]
-  workflow_dispatch: 
-
+  workflow_dispatch:
 
 jobs:
   build:
@@ -21,8 +20,7 @@ jobs:
         with:
           # The version of Bun to install. (e.g. "latest", "canary", "1.0.0", "1.0.x", <sha>)
           bun-version: latest
-      - run: bun install
-      - run: bun lint
+      - run: bun install --frozen-lockfile
       - run: bun run build
 
   publish-gpr:
@@ -40,7 +38,11 @@ jobs:
         with:
           # The version of Bun to install. (e.g. "latest", "canary", "1.0.0", "1.0.x", <sha>)
           bun-version: latest
-      - run: bun install
+          # The URL of the package registry to use for installing Bun. Set the $BUN_AUTH_TOKEN environment variable to authenticate with the registry.
+          registry-url: https://npm.pkg.github.com/
+
+          scope: '@boltsocial'
+      - run: bun install --frozen-lockfile
       - run: bun publish
         env:
           BUN_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
