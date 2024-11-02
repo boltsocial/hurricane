@@ -38,8 +38,6 @@ jobs:
         with:
           # The version of Bun to install. (e.g. "latest", "canary", "1.0.0", "1.0.x", <sha>)
           bun-version: latest
-          # The URL of the package registry to use for installing Bun. Set the $BUN_AUTH_TOKEN environment variable to authenticate with the registry.
-          registry-url: https://npm.pkg.github.com/
 
           scope: '@boltsocial'
       - uses: actions/setup-node@v4
@@ -50,4 +48,4 @@ jobs:
       - run: bun run build
       - run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          NODE_AUTH_TOKEN: ${{secrets.NODE_AUTH_TOKEN}}
