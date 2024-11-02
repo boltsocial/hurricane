@@ -29,7 +29,7 @@ test("Uniqueness", () => {
     spinner: cliSpinners.material,
   }).start();
 
-  for (let i = 0; i < 1000; i++) {
+  for (let i = 0; i < 10000; i++) {
     const id = HCID.generate().toString();
     ids.push(id);
   }
@@ -37,7 +37,7 @@ test("Uniqueness", () => {
   spinner.text = "Checking uniqueness...";
 
   // Check if all ids are unique
-  expect(ids.length).toBe(1000);
+  expect(ids.length).toBe(10000);
 
   spinner.succeed("Enough IDs generated");
 
@@ -47,7 +47,7 @@ test("Uniqueness", () => {
   }).start();
 
   // Check if there are no duplicates
-  expect(unique(ids).length).toBe(1000); // 1000 unique ids
+  expect(unique(ids).length).toBe(10000); // 10000 unique ids
 
   uniqueSpinner.succeed("All IDs are unique");
 });
