@@ -4,6 +4,31 @@
 
 Like a real hurricane, this ID format is unique across the globe and scalable to any size.
 
+## Installation
+
+```sh
+# npm
+npm install @boltsocial/hurricane
+# yarn
+yarn add @boltsocial/hurricane
+# pnpm
+pnpm add @boltsocial/hurricane
+# bun
+bun install @boltsocial/hurricane
+```
+
+## Usage
+
+```ts
+import { Hurricane } from "@boltsocial/hurricane";
+
+const idFactory = new Hurricane();
+
+const id = idFactory.generate();
+
+console.log(id.toString());
+```
+
 ## Inspiration
 
 This project is inspired by Twitter(X)'s Snowflake ID format and Sony's Sonyflake.
