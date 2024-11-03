@@ -1,7 +1,5 @@
 import { expect, test } from "bun:test";
 import HCIDFactory from "./index";
-import ora from "ora";
-import cliSpinners from "cli-spinners";
 
 function unique(array: string[]): string[] {
   const arr = new Array<string>();
@@ -13,7 +11,7 @@ function unique(array: string[]): string[] {
   return arr;
 }
 
-test("Uniqueness", () => {
+test("Uniqueness", async () => {
   // Generate 100000 ids
   const ids = new Array<string>();
 
@@ -24,30 +22,14 @@ test("Uniqueness", () => {
     sequence: 0,
   });
 
-  const spinner = ora({
-    text: "Generating IDs...",
-    spinner: cliSpinners.material,
-  }).start();
-
-  for (let i = 0; i < 10000; i++) {
-    const id = HCID.generate().toString();
+  for (let i = 0; i < 50000; i++) {
+    const id = (await HCID.generate()).toString();
     ids.push(id);
   }
 
-  spinner.text = "Checking uniqueness...";
-
   // Check if all ids are unique
-  expect(ids.length).toBe(10000);
-
-  spinner.succeed("Enough IDs generated");
-
-  const uniqueSpinner = ora({
-    text: "Checking uniqueness...",
-    spinner: cliSpinners.material,
-  }).start();
+  expect(ids.length).toBe(50000);
 
   // Check if there are no duplicates
-  expect(unique(ids).length).toBe(10000); // 10000 unique ids
-
-  uniqueSpinner.succeed("All IDs are unique");
+  expect(unique(ids).length).toBe(50000); // 10000 unique ids
 });
