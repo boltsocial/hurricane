@@ -17,6 +17,7 @@ jobs:
           bun-version: latest
       - run: bun install --frozen-lockfile
       - run: bun test
+      - run: bun run build
       - run: bun pm pack
       - uses: actions/upload-artifact@v4
         with:
