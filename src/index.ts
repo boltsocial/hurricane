@@ -30,17 +30,18 @@ class HCID {
 
 export default class HCIDFactory {
   options: HCIDFactoryOptions;
+  lastTimestamp: bigint = BigInt(0);
 
   constructor(options: HCIDFactoryOptions) {
     this.options = options;
   }
 
-  pack(
+  async pack(
     timestamp: bigint,
     machineId: number,
     processId: number,
     sequence: number,
-  ): HCID {
+  ): Promise<HCID> {
     // Create a 64-bit ID
     const id =
       (timestamp << BigInt(23)) +
@@ -51,21 +52,31 @@ export default class HCIDFactory {
     return new HCID(id);
   }
 
-  generate(): HCID {
+  async generate(): Promise<HCID> {
     const timestamp = Date.now() - this.options.offset;
+
     const machineId = this.options.machineId;
     const processId = this.options.processId;
     const offset = this.options.offset;
 
-    if (this.options.sequence > 4095) {
+    if (this.lastTimestamp !== BigInt(timestamp)) {
       this.options.sequence = 0;
+      this.lastTimestamp = BigInt(timestamp);
+    } else if (this.options.sequence >= 4096) {
+      // Sequence number has reached the maximum value
+      // Wait until the next millisecond
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(this.generate());
+        }, 1);
+      });
     } else {
       this.options.sequence++;
     }
 
     const sequence = this.options.sequence;
 
-    return this.pack(
+    return await this.pack(
       BigInt(timestamp - offset),
       machineId,
       processId,
