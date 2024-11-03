@@ -13,4 +13,5 @@ This project is inspired by Twitter(X)'s Snowflake ID format and Sony's Sonyflak
 - 64-bit bigint
 - 41 bits for time in 2 milliseconds increments since the custom epoch/origin (Midnight, July 4, 2024)
 - 10 bits for a machine id
-- 12 bits for a sequence number
+- 12 bits for a sequence number ~ 4096 possible IDs per machine per millisecond
+- 1 bit to reserve for signed int
