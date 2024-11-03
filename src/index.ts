@@ -10,10 +10,10 @@
  */
 
 type HCIDFactoryOptions = {
-  machineId: number;
-  processId: number;
-  offset: number;
-  sequence: number;
+  machineId?: number;
+  processId?: number;
+  offset?: number;
+  sequence?: number;
 };
 
 class HCID {
@@ -29,11 +29,33 @@ class HCID {
 }
 
 export default class HCIDFactory {
-  options: HCIDFactoryOptions;
+  options: {
+    machineId: number;
+    processId: number;
+    offset: number;
+    sequence: number;
+  };
   lastTimestamp: bigint = BigInt(0);
 
-  constructor(options: HCIDFactoryOptions) {
-    this.options = options;
+  constructor();
+  constructor(options: HCIDFactoryOptions);
+
+  constructor(options?: HCIDFactoryOptions) {
+    if (!options) {
+      options = {
+        machineId: 1,
+        processId: 1,
+        offset: 0,
+        sequence: 0,
+      };
+    }
+
+    this.options = {
+      machineId: options.machineId || 0,
+      processId: options.processId || 0,
+      offset: options.offset || 0,
+      sequence: options.sequence || 0,
+    };
   }
 
   async pack(
