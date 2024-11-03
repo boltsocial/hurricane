@@ -33,3 +33,15 @@ test("Uniqueness", async () => {
   // Check if there are no duplicates
   expect(unique(ids).length).toBe(50000); // 10000 unique ids
 });
+
+test("63-bit ID", async () => {
+  const HCID = new HCIDFactory({
+    machineId: 0,
+    processId: 0,
+    offset: 0,
+    sequence: 0,
+  });
+
+  const id = await HCID.generate();
+  expect(id.id.toString(2).length).toBe(63);
+});

@@ -64,11 +64,11 @@ export default class HCIDFactory {
     processId: number,
     sequence: number,
   ): Promise<HCID> {
-    // Create a 64-bit ID
+    // Create a 63-bit ID (64-bit - 1 sign bit)
     const id =
-      (timestamp << BigInt(23)) +
-      (BigInt(machineId) << BigInt(13)) +
-      (BigInt(processId) << BigInt(5)) +
+      (timestamp << BigInt(22)) |
+      (BigInt(machineId) << BigInt(12)) |
+      (BigInt(processId) << BigInt(4)) |
       BigInt(sequence);
 
     return new HCID(id);
