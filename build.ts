@@ -74,8 +74,25 @@ async function build() {
   }
 }
 
+async function rollup() {
+  const rollupSpinner = ora({
+    text: "Rolling up...",
+    spinner: cliSpinners.material,
+  }).start();
+
+  const start = Date.now();
+
+  await $`bunx rollup dist/index.js --file dist/index.cjs --format cjs`.quiet();
+
+  const end = Date.now();
+
+  rollupSpinner.succeed(
+    "Rollup completed in " + chalk.bold(end - start) + "ms",
+  );
+}
+
 async function main() {
-  lint().then(build);
+  lint().then(build).then(rollup);
 }
 
 main();
